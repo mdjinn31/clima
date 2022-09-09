@@ -1,0 +1,22 @@
+{
+  "name": "clima",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdjinn31/clima.git"
+  },
+  "author": "Antonio Rivera",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mdjinn31/clima/issues"
+  },
+  "homepage": "https://github.com/mdjinn31/clima#readme",
+  "dependencies": {
+    "inquirer": "^9.1.1"
+  }
+}
