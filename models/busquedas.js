@@ -5,8 +5,6 @@ class Busquedas {
 
     historial = [];
 
-    _results = {};
-
     constructor(){
         //TODO: leer db si existe
         this.readFromDB();
@@ -18,12 +16,6 @@ class Busquedas {
         return listado;        
     }
 
-    get listadoArr() {
-        const listado = [];
-        Object.keys(this._results).forEach( key => listado.push(this._results[key]));
-        return listado;
-    }
- 
     get mapBoxParams(){
         return {
             'access_token': process.env.MAPBOX_KEY,
@@ -71,7 +63,15 @@ class Busquedas {
                 }
             });
             const res = await weatherInstance.get();    
-            return res.data;
+            const {main, weather} = res.data;
+            return{
+                'temp':main.temp,
+                'temp_min':main.temp_min,
+                'temp_max':main.temp_max,
+                'pressure':main.pressure,
+                'humidity':main.humidity,
+                'description':weather[0].description
+            }
         } catch (error) {
             console.log(error);
             return [];
@@ -79,7 +79,6 @@ class Busquedas {
     }
 
     addHistory ( place = ''){
-        //TODO 
         // *Prevenir Duplicados
         if(this.historial.includes(place.toLocaleLowerCase())) return;
 
@@ -95,8 +94,6 @@ class Busquedas {
     readFromDB(){
         this.historial = readData();
     }
-
-
 }
 
 module.exports = Busquedas;
