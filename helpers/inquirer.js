@@ -8,33 +8,17 @@ const preguntas = [
         message: 'Que dessea hacer?',
         choices: [
             {
-                value: '1',
-                name: `${'1.'.yellow} ${'Crear Tarea'.inverse}`
+                value: 1,
+                name: `${'1.'.yellow} ${'Buscar Ciudad'.inverse}`
             },
             {
-                value: '2',
-                name: `${'2.'.yellow} ${'Listar Tareas'.inverse}`
+                value: 2,
+                name: `${'2.'.yellow} ${'Historial de Busqueda'.inverse}`
             },
             {
-                value: '3',
-                name: `${'3.'.yellow} ${'Listar Tareas Completadas'.inverse}`
-            },
-            {
-                value: '4',
-                name: `${'4.'.yellow} ${'Listar Tareas Pendientes'.inverse}`
-            },
-            {
-                value: '5',
-                name: `${'5.'.yellow} ${'Completar Tarea(s)'.inverse}`
-            },
-            {
-                value: '6',
-                name: `${'6.'.yellow} ${'Borrar Tarea'.inverse}`
-            },
-            {
-                value: '0',
+                value: 0,
                 name: `${'0.'.yellow} ${'Salir'.inverse}`
-            }
+            },
         ]
     }
 ];
@@ -80,52 +64,33 @@ const readInput = async(message = '') => {
 
 }
 
-const deleteTaskMenu = async(tareas = []) => {
-
-    const choices = tareas.map( (v,k) => {
-        return ({value: v.id, name: `${((k+1)+'. ').green} ${v.desc} :: ${(v.completadoEn)?'Completada'.green : 'Pendiente'.red}`});
+const listarLugares = async(lugares = []) => {
+    
+    const choices = lugares.map( (v,k) => {
+        return ({
+            value: v.id, 
+            name: `${((k+1)+'. '+ v.lugar).green}` 
+            
+        });
     });
 
     choices.unshift({value: '0', name: '0. '.green + ' Canselar'});
 
-    const taskList = [
+    const placesList = [
         {
             type: 'list',
-            name: 'id',
-            message: 'Seleccione tarea a borrar',
+            name: 'place',
+            message: 'Seleccione Lugar: ',
             choices
         }
     ];    
 
     console.clear();
     console.log('=========================='.green);
-    console.log('  Lista de Tareas  '.yellow.bold);
+    console.log('  Lista de Lugares  '.yellow.bold);
     console.log('==========================\n'.green);
-    const { id } = await inquirer.prompt(taskList);
-    return id;
-}
-
-const completeTaskMenu = async(tareas = []) => {
-
-    const choices = tareas.map( (v,k) => {
-        return ({value: v.id, name: `${((k+1)+'. ').green} ${v.desc} :: ${(v.completadoEn)?'Completada'.green : 'Pendiente'.red}`, checked: (v.completadoEn)? true : false});
-    });
-
-    const taskList = [
-        {
-            type: 'checkbox',
-            name: 'tasks',
-            message: 'Seleccione tarea a borrar',
-            choices
-        }
-    ];    
-
-    console.clear();
-    console.log('=========================='.green);
-    console.log('  Lista de Tareas  '.yellow.bold);
-    console.log('==========================\n'.green);
-    const { tasks } = await inquirer.prompt(taskList);
-    return tasks;
+    const { place } = await inquirer.prompt(placesList);
+    return place;
 }
 
 const confirm = async(message) => {
@@ -146,7 +111,6 @@ module.exports ={
     inquirerMenu,
     pause,
     readInput,
-    deleteTaskMenu,
     confirm,
-    completeTaskMenu
+    listarLugares
 }

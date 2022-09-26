@@ -9,7 +9,7 @@ const saveData = (data)=>{
 const readData = () => {
     if(!fs.existsSync(file)) return null;
     const data = fs.readFileSync(file, {encoding: 'utf-8'});
-    const dataJson = JSON.parse(data);
+    const dataJson = data ? JSON.parse(data) : [];
     return dataJson;
 }
 
